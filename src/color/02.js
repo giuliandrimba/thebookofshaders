@@ -39,9 +39,10 @@ window.onload = () => {
 
       vec2 toCenter = vec2(0.5)-st;
       float rotation = u_time;
-      float angle = atan(toCenter.y,toCenter.x) + rotation;
-      angle -= mod(angle, (TWO_PI / 6.0));
       float radius = length(toCenter)*2.0;
+      float angle = atan(toCenter.y,toCenter.x) + rotation;
+      angle += radius;
+      angle -= mod(angle, (TWO_PI / 6.0));
 
       color = hsb2rgb(vec3((angle/TWO_PI)+0.5,1.0,1.0));
 
