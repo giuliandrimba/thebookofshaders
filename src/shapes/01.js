@@ -18,7 +18,7 @@ window.onload = () => {
 
     #define PI 3.14159265359
 
-    uniform float time;
+    uniform float u_time;
     uniform vec2 u_resolution;
     varying vec2 uv;
 
@@ -38,7 +38,7 @@ window.onload = () => {
 
       color = vec3( rect(vec2(0.01), vec2(0.5), st) );
       color += vec3( rect(vec2(0.6), vec2(0.2), st) );
-      color += vec3( rect(vec2(0.0, 0.6), vec2(0.4), st) );
+      color += vec3( rect(vec2(0.0 + sin(u_time), 0.6), vec2(0.4), st) );
 
       gl_FragColor = vec4(color,1.0);
     }
@@ -71,13 +71,14 @@ window.onload = () => {
         ]
       },
       uniforms: {
-        time: ({tick}) => 0.01 * tick,
+        u_time: ({tick}) => 0.01 * tick,
         u_resolution: () => [width, height]
       },
       count: 6
     })
 
     return () => {
+      regl.poll();
       regl.clear({
         color: [0, 0, 0, 1]
       })
